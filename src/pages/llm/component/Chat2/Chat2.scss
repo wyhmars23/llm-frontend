@@ -1,22 +1,41 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  position: relative;
+  height: 100vh;
 }
 
 .messages {
-  overflow-y: auto; 
-  flex: 1;
-  padding: 10px;
+  flex-grow: 1;
+  overflow-y: auto;
+
+  .user {
+    width: 50%;
+    display: flex;
+    padding: 15px;
+    margin: 30px 20%;
+    margin-left: auto;
+    /* 自动将元素推到右侧 */
+    background-color: rgb(252, 252, 252);
+    font-size: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+    /* 自动换行 */
+    word-break: break-word;
+    /* 为避免长单词或链接超出边界 */
+    overflow-wrap: break-word;
+    /* 支持更多浏览器的换行处理 */
+  }
 }
 
+
+
 .input-container {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  position: sticky;
   display: flex;
-  justify-content: center; // 水平居中
-  padding-bottom: 40px; // 向上微调
+  max-height: none; // 确保没有限制最大高度
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  padding-bottom: 40px;
 }
