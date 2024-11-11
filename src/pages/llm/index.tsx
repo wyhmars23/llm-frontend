@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Splitter,Button } from "antd";
 import Chat1 from "./component/Chat1/Chat1";
+import Chat2 from "./component/Chat2/Chat2";
 import Sidebar from "./component/Sidebar/Sidebar";
 
 const Llm: React.FC = () => {
@@ -38,7 +39,8 @@ const Llm: React.FC = () => {
           <Sidebar />
         </Splitter.Panel>
         <Splitter.Panel>
-          <Chat1 />
+          {/* <Chat1 /> */}
+          <Chat2 />
         </Splitter.Panel>
       </Splitter>
     </div>
