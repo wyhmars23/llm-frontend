@@ -8,27 +8,56 @@
   flex-grow: 1;
   overflow-y: auto;
 
-  .user {
-    width: 50%;
+  .message {
     display: flex;
-    padding: 15px;
-    margin: 30px 20%;
-    margin-left: auto;
-    /* 自动将元素推到右侧 */
-    background-color: rgb(252, 252, 252);
-    font-size: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    word-wrap: break-word;
-    /* 自动换行 */
-    word-break: break-word;
-    /* 为避免长单词或链接超出边界 */
-    overflow-wrap: break-word;
-    /* 支持更多浏览器的换行处理 */
+    flex-direction: row;
+
+    .icon{
+      display: flex;
+      margin: 40px;
+      width: 35px;
+      height: 35px;
+    }
+
+    .user {
+      width: 50%;
+      display: flex;
+      padding: 15px;
+      margin: 30px 0;
+      margin-left: auto;
+      /* 自动将元素推到右侧 */
+      background-color: rgb(252, 252, 252);
+      font-size: 15px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      word-wrap: break-word;
+      /* 自动换行 */
+      word-break: break-word;
+      /* 为避免长单词或链接超出边界 */
+      overflow-wrap: break-word;
+      /* 支持更多浏览器的换行处理 */
+    }
+
+    .ai {
+      width: 50%;
+      display: flex;
+      padding: 15px;
+      margin: 30px 0;
+      margin-right: auto;
+      /* 自动将元素推到右侧 */
+      background-color: rgb(252, 252, 252);
+      font-size: 15px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      word-wrap: break-word;
+      /* 自动换行 */
+      word-break: break-word;
+      /* 为避免长单词或链接超出边界 */
+      overflow-wrap: break-word;
+      /* 支持更多浏览器的换行处理 */
+    }
   }
 }
-
-
 
 .input-container {
   position: sticky;
