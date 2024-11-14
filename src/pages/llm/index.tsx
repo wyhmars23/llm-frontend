@@ -3,6 +3,7 @@ import { Splitter,Button } from "antd";
 import Chat1 from "./component/Chat1/Chat1";
 import Chat2 from "./component/Chat2/Chat2";
 import Sidebar from "./component/Sidebar/Sidebar";
+import { DoubleRightOutlined, DoubleLeftOutlined } from "@ant-design/icons";
 
 const Llm: React.FC = () => {
   const [initialWidth, setInitialWidth] = useState<number | null>(null);
@@ -24,10 +25,9 @@ const Llm: React.FC = () => {
     <div style={{ height: "100vh" }}>
       <Button
         onClick={() => setCollapsed(!collapsed)}
+        icon={collapsed? <DoubleRightOutlined /> : <DoubleLeftOutlined />}
         style={{ position: "absolute", top: 15, left: 15, zIndex: 1 }}
-      >
-        {collapsed ? "展开" : "收起"}
-      </Button>
+      />
       <Splitter
         style={{ height: "100%", boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
       >
