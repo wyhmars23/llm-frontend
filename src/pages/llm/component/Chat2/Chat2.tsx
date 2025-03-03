@@ -23,17 +23,9 @@ const Chat2: React.FC = () => {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    setShowScrollToBottom(false);  // 确保滚动到底部后按钮隐藏
+    setShowScrollToBottom(false);
   };
 
-  const addMessage = () => {
-    if (value.trim()) {
-      setMessages((prevMessages) => [...prevMessages, value]);
-      setValue("");
-    }
-  };
-
-  // 使用防抖优化滚动判断
   useEffect(() => {
     const handleScroll = debounce(() => {
       setShowScrollToBottom(!isScrolledToBottom());
@@ -50,16 +42,70 @@ const Chat2: React.FC = () => {
   useEffect(() => {
     const scrollTimeout = setTimeout(() => {
       scrollToBottom();
-    }, 100); // 延迟100ms滚动到底部
+    }, 100);
 
     return () => clearTimeout(scrollTimeout);
   }, [messages]);
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
       if (!e.shiftKey) {
         e.preventDefault();
         addMessage();
+      }
+    }
+  };
+  const getChatResponse = async (
+    messages: { role: string; content: string }[],
+    onData: (chunk: string) => void
+  ) => {
+    const response = await fetch("http://localhost:8000/get-chat-response/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(messages),
+    });
+
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder();
+
+    if (reader) {
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        onData(chunk); // 实时更新界面
+      }
+    }
+  };
+
+  const addMessage = async () => {
+    if (value.trim()) {
+      const userMessage = value;
+      setMessages((prevMessages) => [...prevMessages, userMessage]);
+      setValue("");
+
+      const tempIndex = messages.length+1; // AI 消息占位符
+      setMessages((prevMessages) => [...prevMessages, ""]);
+
+      try {
+        await getChatResponse(
+          [{ role: "user", content: userMessage }],
+          (chunk) => {
+            setMessages((prevMessages) => {
+              const updatedMessages = [...prevMessages];
+              updatedMessages[tempIndex] += chunk; // 更新 AI 消息内容
+              return updatedMessages;
+            });
+          }
+        );
+      } catch (error) {
+        console.error("Failed to fetch AI response:", error);
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages];
+          updatedMessages[tempIndex] = "Error: Failed to load response.";
+          return updatedMessages;
+        });
       }
     }
   };
